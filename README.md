@@ -1,0 +1,2 @@
+# leetcode
+today i code
