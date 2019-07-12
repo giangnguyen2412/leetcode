@@ -4,28 +4,19 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        str_len = len(s)
-        dup_idx = -1
-        substring_len = 0
-        tmp_len = 0
-        dup_flag = False
-        substring = list()
-        substring_tmp = list()
+        max_len = 0
+        dct = {}
         
-        for i in range(str_len):
-            if (s[i] in substring):
-                dup_flag = True
-                tmp_len = len(substring)
-                dup_idx = substring.index(s[i])
-                substring = substring[dup_idx + 1:]
-                if tmp_len > substring_len:
-                    substring_len = tmp_len
-            
-            substring.append(s[i])
-            if (len(substring) > substring_len):
-                substring_len = len(substring)
+        i = j = 0
+        n = len(s)
         
-        if (dup_flag == True):
-            return substring_len
-        else:
-            return str_len
+        while (i < n) and (j < n):
+            if s[j] not in dct:
+                dct[s[j]] = 1 # dummy value, just care the key
+                j += 1
+                max_len = max(max_len, j - i)
+            else:
+                del dct[s[i]]
+                i += 1
+        
+        return max_len
